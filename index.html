@@ -1,20 +1,80 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Requirements Board App</title>
-  <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-  <div id="app">
-    <header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Requirements Board</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="topbar">
       <h1>Requirements Board</h1>
+      <div class="toolbar">
+        <button id="load-baseline-btn">Load Returns Baseline</button>
+        <button id="add-card-btn">+ Add Requirement</button>
+      </div>
     </header>
-    <main>
-      <div id="board-container">Loading...</div>
+
+    <main class="layout">
+      <section class="sticky-area" aria-label="Sticky note">
+        <div class="sticky-note">
+          <div class="sticky-note-header">
+            <strong>Open / Action Points</strong>
+          </div>
+          <textarea
+            id="sticky-note-text"
+            rows="5"
+            placeholder="Write open points, action items, decisions... (auto-saved)"
+          ></textarea>
+        </div>
+      </section>
+
+      <section class="board-area">
+        <div class="board-subheader">
+          <h2>Requirements Board</h2>
+        </div>
+        <div id="board" class="board"></div>
+      </section>
     </main>
-  </div>
-  <script src="/app.js"></script>
-</body>
+
+    <dialog id="card-dialog">
+      <form method="dialog" id="card-form">
+        <h3 id="dialog-title">New Requirement</h3>
+        <label>Title <input name="title" required /></label>
+        <label>Description <textarea name="description" rows="2"></textarea></label>
+        <label>Subdescription <textarea name="subdescription" rows="3"></textarea></label>
+        <label>System
+          <select name="systems">
+            <option>SAP Commerce</option>
+            <option>SAP S/4HANA</option>
+            <option>Integration</option>
+            <option>Migration</option>
+            <option>Cross-system</option>
+          </select>
+        </label>
+        <label>Type
+          <select name="type">
+            <option>Business</option>
+            <option>Functional</option>
+            <option>Non-functional</option>
+            <option>Report/Analytical</option>
+            <option>Security</option>
+            <option>Performance</option>
+          </select>
+        </label>
+        <label>Phase
+          <select name="phase" disabled>
+            <option>I</option>
+          </select>
+        </label>
+        <label>Dependencies (IDs) <input name="dependencies" placeholder="REQ-2, REQ-3" /></label>
+        <menu class="dialog-actions">
+          <button value="cancel" type="reset">Cancel</button>
+          <button id="save-card-btn" value="default">Save</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <script src="./app.js"></script>
+  </body>
 </html>
